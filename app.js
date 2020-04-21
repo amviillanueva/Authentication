@@ -76,7 +76,6 @@ passport.use(new FacebookStrategy({
     enableProof: true
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log("hi");
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
       return cb(err, user);
     });
@@ -98,8 +97,8 @@ app.get("/auth/google/secrets",
     res.redirect("/secrets");
   });
 
-app.get("/auth/facebook",
-  passport.authenticate("facebook", {scope: ["user-friends"]}));
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
 
 app.get('/auth/facebook/secrets',
   passport.authenticate("facebook", { failureRedirect: "/login" }),
